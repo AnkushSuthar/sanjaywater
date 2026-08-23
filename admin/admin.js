@@ -14,38 +14,83 @@ const loginScreen = document.getElementById("loginScreen");
 const loginForm = document.getElementById("loginForm");
 const loginError = document.getElementById("loginError");
 
+const loginButton = document.getElementById("loginButton");
+const loginButtonText = document.getElementById("loginButtonText");
+const loginLoader = document.getElementById("loginLoader");
 
-// Check previous login
-if (sessionStorage.getItem("sanjayAdminLoggedIn") === "true") {
+
+/* Check previous login */
+
+if (
+    sessionStorage.getItem("sanjayAdminLoggedIn") === "true"
+) {
     loginScreen.classList.add("hidden");
 }
 
 
-// Login
-loginForm.addEventListener("submit", function (e) {
+/* Login */
+
+loginForm.addEventListener("submit", function(e) {
 
     e.preventDefault();
 
-    const name = document.getElementById("adminName").value.trim();
-    const password = document.getElementById("adminPassword").value;
+    const name =
+        document.getElementById("adminName").value.trim();
 
-    if (name === ADMIN_NAME && password === ADMIN_PASSWORD) {
+    const password =
+        document.getElementById("adminPassword").value;
+
+
+    /* Wrong login */
+
+    if (name !== ADMIN_NAME || password !== ADMIN_PASSWORD) {
+
+        loginError.textContent =
+            "❌ Admin name या password गलत है।";
+
+        return;
+    }
+
+
+    /* Start Loading */
+
+    loginError.textContent = "";
+
+    loginButton.classList.add("loading");
+
+    loginButton.disabled = true;
+
+    loginButtonText.textContent = "Logging in...";
+
+
+    /* Simulated Login Delay */
+
+    setTimeout(function() {
 
         sessionStorage.setItem(
             "sanjayAdminLoggedIn",
             "true"
         );
 
-        loginScreen.classList.add("hidden");
+        loginButtonText.textContent = "Success ✓";
 
-        loginError.textContent = "";
 
-    } else {
+        /* Open Dashboard */
 
-        loginError.textContent =
-            "❌ Admin name या password गलत है।";
+        setTimeout(function() {
 
-    }
+            loginScreen.classList.add("hidden");
+
+            loginButton.classList.remove("loading");
+
+            loginButton.disabled = false;
+
+            loginButtonText.textContent = "Login";
+
+        }, 400);
+
+
+    }, 1500);
 
 });
 
