@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sanjay Water | Admin Dashboard</title>
+
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">💧</div>
+            <div>
+                <h2>Sanjay Water</h2>
+                <span>Admin Panel</span>
+            </div>
+        </div>
+
+        <nav>
+
+            <a href="#" class="nav-link active" data-section="dashboard">
+                <span>📊</span>
+                Dashboard
+            </a>
+
+            <a href="#" class="nav-link" data-section="orders">
+                <span>📦</span>
+                Orders
+            </a>
+
+            <a href="#" class="nav-link" data-section="customers">
+                <span>👥</span>
+                Customers
+            </a>
+
+            <a href="#" class="nav-link" data-section="products">
+                <span>💧</span>
+                Products
+            </a>
+
+            <a href="#" class="nav-link" data-section="settings">
+                <span>⚙️</span>
+                Settings
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="../index.html" class="back-site">
+                ← Back to Website
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <!-- Header -->
+        <header class="header">
+
+            <button class="menu-btn" id="menuBtn">
+                ☰
+            </button>
+
+            <div>
+                <h1 id="pageTitle">Dashboard</h1>
+                <p>Welcome back, Admin 👋</p>
+            </div>
+
+            <div class="admin-profile">
+
+                <div class="notification">
+                    🔔
+                    <span class="notification-dot"></span>
+                </div>
+
+                <div class="profile-avatar">
+                    A
+                </div>
+
+                <div class="profile-info">
+                    <strong>Admin</strong>
+                    <span>Administrator</span>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- Dashboard Section -->
+        <section class="section active" id="dashboard">
+
+            <!-- Stats -->
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">📦</div>
+                    <div>
+                        <span>Total Orders</span>
+                        <h2 id="totalOrders">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">⏳</div>
+                    <div>
+                        <span>Pending</span>
+                        <h2 id="pendingOrders">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">✓</div>
+                    <div>
+                        <span>Delivered</span>
+                        <h2 id="deliveredOrders">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon red">✕</div>
+                    <div>
+                        <span>Cancelled</span>
+                        <h2 id="cancelledOrders">0</h2>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Revenue -->
+            <div class="revenue-card">
+
+                <div>
+                    <span>Total Revenue</span>
+                    <h2 id="totalRevenue">₹0</h2>
+                    <small>This is demo data for now</small>
+                </div>
+
+                <div class="revenue-icon">
+                    💰
+                </div>
+
+            </div>
+
+
+            <!-- Recent Orders -->
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+                        <h2>Recent Orders</h2>
+                        <p>Latest customer orders</p>
+                    </div>
+
+                    <button class="view-all" onclick="showSection('orders')">
+                        View All
+                    </button>
+
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Mobile</th>
+                                <th>Bottle</th>
+                                <th>Qty</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="recentOrdersTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Orders Section -->
+        <section class="section" id="orders">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>All Orders</h2>
+                    <p>Manage customer orders</p>
+                </div>
+
+            </div>
+
+
+            <!-- Search -->
+            <div class="search-box">
+
+                <span>🔍</span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search by name, mobile or order ID..."
+                >
+
+            </div>
+
+
+            <div class="filter-row">
+
+                <button class="filter-btn active" data-filter="all">
+                    All
+                </button>
+
+                <button class="filter-btn" data-filter="Pending">
+                    Pending
+                </button>
+
+                <button class="filter-btn" data-filter="Confirmed">
+                    Confirmed
+                </button>
+
+                <button class="filter-btn" data-filter="Delivered">
+                    Delivered
+                </button>
+
+                <button class="filter-btn" data-filter="Cancelled">
+                    Cancelled
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Mobile</th>
+                                <th>Address</th>
+                                <th>Bottle</th>
+                                <th>Qty</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="ordersTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Customers -->
+        <section class="section" id="customers">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Customers</h2>
+                    <p>Customer information</p>
+                </div>
+            </div>
+
+            <div class="customer-grid" id="customerGrid"></div>
+
+        </section>
+
+
+        <!-- Products -->
+        <section class="section" id="products">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Products</h2>
+                    <p>Manage water bottle products</p>
+                </div>
+            </div>
+
+            <div class="product-grid">
+
+                <div class="product-card">
+                    <div class="product-icon">💧</div>
+                    <h3>1 Litre Bottle</h3>
+                    <p>Small water bottle</p>
+                    <strong>₹20</strong>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-icon">💧</div>
+                    <h3>5 Litre Bottle</h3>
+                    <p>Medium water bottle</p>
+                    <strong>₹40</strong>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-icon">💧</div>
+                    <h3>10 Litre Bottle</h3>
+                    <p>Large water bottle</p>
+                    <strong>₹60</strong>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-icon">💧</div>
+                    <h3>20 Litre Bottle</h3>
+                    <p>Water jar</p>
+                    <strong>₹80</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Settings -->
+        <section class="section" id="settings">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Settings</h2>
+                    <p>Admin panel settings</p>
+                </div>
+            </div>
+
+            <div class="card settings-card">
+
+                <h3>Store Information</h3>
+
+                <label>Store Name</label>
+                <input type="text" value="Sanjay Water">
+
+                <label>Phone Number</label>
+                <input type="tel" placeholder="Enter phone number">
+
+                <label>Address</label>
+                <textarea placeholder="Enter store address"></textarea>
+
+                <button class="save-btn">
+                    Save Changes
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Order Details Modal -->
+    <div class="modal" id="orderModal">
+
+        <div class="modal-box">
+
+            <button class="close-modal" onclick="closeModal()">
+                ×
+            </button>
+
+            <h2>Order Details</h2>
+
+            <div id="orderDetails"></div>
+
+        </div>
+
+    </div>
+
+
+    <script src="admin.js"></script>
+
+</body>
+</html>
