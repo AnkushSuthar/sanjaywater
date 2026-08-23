@@ -191,7 +191,7 @@ form.addEventListener("submit", function(e){
         return;
     }
     showMessage(
-        "✅ Thank you! Your message has been sent successfully.",
+        "✅ Mut pile mera chahiye pani!",
         "green"
     );
     form.reset();
