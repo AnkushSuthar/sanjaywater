@@ -233,3 +233,257 @@ console.log(
 "%cSanjay Water Website Loaded Successfully!",
 "color:#0077B6;font-size:18px;font-weight:bold;"
 );
+
+/*========================================
+        ORDER SYSTEM - FRONTEND
+========================================*/
+
+const orderModal = document.getElementById("orderModal");
+const closeOrder = document.getElementById("closeOrder");
+const orderForm = document.getElementById("orderForm");
+
+const orderProduct = document.getElementById("orderProduct");
+const orderQuantity = document.getElementById("orderQuantity");
+const orderName = document.getElementById("orderName");
+const orderPhone = document.getElementById("orderPhone");
+const orderAddress = document.getElementById("orderAddress");
+const orderMessage = document.getElementById("orderMessage");
+
+const orderButtons = document.querySelectorAll(".order-btn");
+
+
+/*======== OPEN ORDER MODAL ========*/
+
+orderButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const product = button.getAttribute("data-product");
+
+        orderProduct.value = product;
+
+        orderModal.classList.add("active");
+
+        document.body.style.overflow = "hidden";
+
+        orderMessage.textContent = "";
+
+    });
+
+});
+
+
+/*======== CLOSE ORDER MODAL ========*/
+
+function closeOrderModal() {
+
+    orderModal.classList.remove("active");
+
+    document.body.style.overflow = "";
+
+}
+
+
+closeOrder.addEventListener("click", closeOrderModal);
+
+
+/*======== CLOSE WHEN CLICKING OUTSIDE ========*/
+
+orderModal.addEventListener("click", (event) => {
+
+    if (event.target === orderModal) {
+        closeOrderModal();
+    }
+
+});
+
+
+/*======== ESC KEY CLOSE ========*/
+
+document.addEventListener("keydown", (event) => {
+
+    if (event.key === "Escape") {
+        closeOrderModal();
+    }
+
+});
+
+
+/*======== ONLY NUMBERS IN PHONE ========*/
+
+orderPhone.addEventListener("input", () => {
+
+    orderPhone.value = orderPhone.value
+        .replace(/\D/g, "")
+        .slice(0, 10);
+
+});
+
+
+/*======== ORDER FORM VALIDATION ========*/
+
+orderForm.addEventListener("submit", (event) => {
+
+    event.preventDefault();
+
+    const product = orderProduct.value;
+    const quantity = orderQuantity.value.trim();
+    const name = orderName.value.trim();
+    const phone = orderPhone.value.trim();
+    const address = orderAddress.value.trim();
+
+    /* Product */
+
+    if (product === "") {
+
+        showOrderMessage(
+            "Please select a water product.",
+            "red"
+        );
+
+        orderProduct.focus();
+
+        return;
+    }
+
+
+    /* Quantity */
+
+    if (quantity === "" || Number(quantity) < 1) {
+
+        showOrderMessage(
+            "Please enter a valid quantity.",
+            "red"
+        );
+
+        orderQuantity.focus();
+
+        return;
+    }
+
+
+    /* Name */
+
+    if (name.length < 2) {
+
+        showOrderMessage(
+            "Please enter your full name.",
+            "red"
+        );
+
+        orderName.focus();
+
+        return;
+    }
+
+
+    /* Phone */
+
+    const phonePattern = /^[6-9][0-9]{9}$/;
+
+    if (!phonePattern.test(phone)) {
+
+        showOrderMessage(
+            "Please enter a valid 10 digit mobile number.",
+            "red"
+        );
+
+        orderPhone.focus();
+
+        return;
+    }
+
+
+    /* Address */
+
+    if (address.length < 10) {
+
+        showOrderMessage(
+            "Please enter your complete delivery address.",
+            "red"
+        );
+
+        orderAddress.focus();
+
+        return;
+    }
+
+
+    /* Payment */
+
+    const paymentMethod =
+        document.querySelector(
+            'input[name="paymentMethod"]:checked'
+        ).value;
+
+
+    /* TEMPORARY ORDER ID */
+
+    const orderId =
+        "SW-" +
+        Date.now().toString().slice(-8);
+
+
+    /* Show success */
+
+    showOrderMessage(
+        "✅ Order details ready! Order ID: " + orderId,
+        "green"
+    );
+
+
+    /*
+        IMPORTANT:
+
+        Abhi database connected nahi hai.
+
+        Isliye order yahan sirf frontend
+        par process ho raha hai.
+
+        Database hum next step me add karenge.
+    */
+
+
+    console.log("Sanjay Water Order:", {
+
+        orderId: orderId,
+
+        product: product,
+
+        quantity: quantity,
+
+        customerName: name,
+
+        phone: phone,
+
+        address: address,
+
+        paymentMethod: paymentMethod,
+
+        createdAt: new Date().toISOString()
+
+    });
+
+
+    /* Reset after successful frontend test */
+
+    setTimeout(() => {
+
+        orderForm.reset();
+
+        closeOrderModal();
+
+    }, 2500);
+
+});
+
+
+/*======== ORDER MESSAGE ========*/
+
+function showOrderMessage(text, color) {
+
+    orderMessage.textContent = text;
+
+    orderMessage.style.color = color;
+
+}
