@@ -333,6 +333,7 @@ section{
     display:inline-block;
     margin:25px 0;
     background:var(--primary);
+    border:none;
     color:#fff;
     padding:12px 28px;
     border-radius:40px;
