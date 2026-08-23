@@ -761,3 +761,42 @@ td {
     }
 
 }
+
+
+/* ==============================
+   LOGIN LOADING
+================================ */
+
+#loginButton {
+    position: relative;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+#loginButton.loading {
+    opacity: 0.85;
+    cursor: not-allowed;
+}
+
+.loader {
+    display: none;
+    width: 18px;
+    height: 18px;
+    border: 3px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+#loginButton.loading .loader {
+    display: inline-block;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
