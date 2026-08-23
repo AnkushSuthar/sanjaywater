@@ -3,6 +3,54 @@
 ================================ */
 
 
+/* ==============================
+   ADMIN LOGIN
+================================ */
+
+const ADMIN_NAME = "Sanjay Singh";
+const ADMIN_PASSWORD = "748525";
+
+const loginScreen = document.getElementById("loginScreen");
+const loginForm = document.getElementById("loginForm");
+const loginError = document.getElementById("loginError");
+
+
+// Check previous login
+if (sessionStorage.getItem("sanjayAdminLoggedIn") === "true") {
+    loginScreen.classList.add("hidden");
+}
+
+
+// Login
+loginForm.addEventListener("submit", function (e) {
+
+    e.preventDefault();
+
+    const name = document.getElementById("adminName").value.trim();
+    const password = document.getElementById("adminPassword").value;
+
+    if (name === ADMIN_NAME && password === ADMIN_PASSWORD) {
+
+        sessionStorage.setItem(
+            "sanjayAdminLoggedIn",
+            "true"
+        );
+
+        loginScreen.classList.add("hidden");
+
+        loginError.textContent = "";
+
+    } else {
+
+        loginError.textContent =
+            "❌ Admin name या password गलत है।";
+
+    }
+
+});
+
+
+
 /* Demo Orders
    Later these will come from database
 */
