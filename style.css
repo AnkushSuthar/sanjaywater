@@ -1,16 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-    --primary:#0077B6;
-    --primary-dark:#023E8A;
-    --secondary:#90E0EF;
-    --light:#CAF0F8;
+    --primary:#087F9C;
+    --primary-dark:#063B5C;
+    --secondary:#19C3D1;
+    --light:#F0FAFC;
     --white:#FFFFFF;
-    --dark:#03045E;
-    --text:#333333;
-    --gray:#666666;
-    --shadow:0 10px 30px rgba(0,0,0,.08);
-    --radius:14px;
+    --dark:#063B5C;
+    --text:#19323F;
+    --gray:#617783;
+    --shadow:0 12px 35px
+ rgba(6,59,92,.10);
+    --radius:16px;
     --transition:.35s ease;
 }
 
@@ -84,6 +85,7 @@ section{
 .btn:hover{
     background:var(--primary-dark);
     transform:translateY(-4px);
+    box-shadow: 0 10px 25px           rgba(8,127,156,.25);
 }
 
 .btn-outline{
@@ -108,9 +110,10 @@ section{
     left:0;
     width:100%;
     z-index:999;
-    background:rgba(255,255,255,.95);
-    backdrop-filter:blur(12px);
-    box-shadow:0 2px 20px rgba(0,0,0,.05);
+    background:rgba(255,255,255,.88);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    box-shadow:0 4px 25px rgba(6,59,92,.07);
 }
 
 .navbar{
@@ -181,7 +184,9 @@ section{
     min-height:100vh;
     display:flex;
     align-items:center;
-    background:linear-gradient(135deg,#CAF0F8,#90E0EF,#FFFFFF);
+    background:
+    radial-gradient(circle at 85% 20%, rgba(25,195,209,.28), transparent 35%),
+    linear-gradient(135deg,#E9F9FC 0%,#C8F0F4 45%,#FFFFFF 100%);
     padding-top:100px;
 }
 
@@ -341,7 +346,9 @@ section{
 }
 
 .card-btn:hover{
-    background:var(--primary-dark);
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(6,59,92,.20);
 }
 
 
