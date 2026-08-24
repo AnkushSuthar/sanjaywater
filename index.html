@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Sanjay Water | Pure Water. Pure Trust.</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <meta
         name="description"
-        content="Sanjay Water provides premium packaged drinking water, 1L bottles, 20L jars, bulk water supply and reliable home delivery."
+        content="Sanjay Water - Premium packaged drinking water, home delivery, office supply and bulk water solutions."
     >
 
-    <meta name="theme-color" content="#063B5C">
+    <meta
+        name="theme-color"
+        content="#063b5c"
+    >
+
+    <title>Sanjay Water | Pure Water. Pure Trust.</title>
 
     <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
@@ -27,392 +40,199 @@
     <!-- Font Awesome -->
     <link
         rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
 
     <!-- Main CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 </head>
 
 <body>
 
-    <!-- ==============================
-         TOP ANNOUNCEMENT
-    ================================= -->
-
-    <div class="top-bar">
-
-        <div class="container top-bar-content">
-
-            <p>
-                <i class="fa-solid fa-circle-check"></i>
-                Pure • Hygienic • Reliable Water
-            </p>
-
-            <a href="#contact">
-                Need Water? Contact Us
-                <i class="fa-solid fa-arrow-right"></i>
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <!-- ==============================
-         SCROLL TOP
-    ================================= -->
-
-    <button id="scrollTop" aria-label="Scroll to top">
-
-        <i class="fa-solid fa-arrow-up"></i>
-
-    </button>
-
-
-    <!-- ==============================
+    <!-- =====================================================
          HEADER
-    ================================= -->
+    ====================================================== -->
 
     <header class="header">
 
-        <nav class="navbar container">
+        <div class="container navbar">
 
             <!-- Logo -->
+            <a
+                href="#home"
+                class="logo"
+                aria-label="Sanjay Water Home"
+            >
+                <i class="fa-solid fa-droplet"></i>
 
-            <a href="#home" class="logo">
-
-                <span class="logo-mark">
-                    <i class="fa-solid fa-droplet"></i>
-                </span>
-
-                <span class="logo-text">
-                    Sanjay Water
-                    <small>Pure Water • Pure Trust</small>
-                </span>
-
+                <span>Sanjay Water</span>
             </a>
 
 
             <!-- Navigation -->
+            <nav
+                class="nav-links"
+                id="navLinks"
+            >
 
-            <ul class="nav-links">
+                <a
+                    href="#home"
+                    class="active"
+                >
+                    Home
+                </a>
 
-                <li>
-                    <a href="#home" class="active">Home</a>
-                </li>
+                <a href="#about">
+                    About
+                </a>
 
-                <li>
-                    <a href="#about">About</a>
-                </li>
+                <a href="#products">
+                    Products
+                </a>
 
-                <li>
-                    <a href="#products">Products</a>
-                </li>
+                <a href="#services">
+                    Services
+                </a>
 
-                <li>
-                    <a href="#services">Services</a>
-                </li>
+                <a href="#gallery">
+                    Gallery
+                </a>
 
-                <li>
-                    <a href="#gallery">Gallery</a>
-                </li>
+                <a href="#testimonials">
+                    Reviews
+                </a>
 
-                <li>
-                    <a href="#contact">Contact</a>
-                </li>
+                <a href="#contact">
+                    Contact
+                </a>
 
-            </ul>
+            </nav>
 
 
-            <!-- Desktop CTA -->
-
-            <a href="#products" class="nav-order-btn">
-
-                Order Water
-
-                <i class="fa-solid fa-arrow-right"></i>
-
-            </a>
+            <!-- Header Order -->
+            <button
+                type="button"
+                class="nav-order-btn"
+                id="navOrderBtn"
+            >
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span>Order Now</span>
+            </button>
 
 
             <!-- Mobile Menu -->
-
-            <div class="hamburger">
-
+            <button
+                type="button"
+                class="hamburger"
+                id="hamburger"
+                aria-label="Open menu"
+                aria-expanded="false"
+            >
                 <span></span>
                 <span></span>
                 <span></span>
+            </button>
 
-            </div>
-
-        </nav>
+        </div>
 
     </header>
 
 
-    <!-- ==============================
+    <!-- =====================================================
          HERO
-    ================================= -->
+    ====================================================== -->
 
-    <section id="home" class="hero">
+    <main>
 
-        <!-- Decorative elements -->
+        <section
+            class="hero"
+            id="home"
+        >
 
-        <div class="hero-glow hero-glow-one"></div>
+            <div class="hero-content">
 
-        <div class="hero-glow hero-glow-two"></div>
+                <!-- Hero Text -->
+                <div class="hero-text">
 
-        <div class="water-drop drop-one">
-            <i class="fa-solid fa-droplet"></i>
-        </div>
-
-        <div class="water-drop drop-two">
-            <i class="fa-solid fa-droplet"></i>
-        </div>
-
-
-        <div class="container hero-content">
-
-
-            <!-- Hero Text -->
-
-            <div class="hero-text reveal">
-
-                <div class="hero-badge">
-
-                    <span></span>
-
-                    Premium Drinking Water
-
-                </div>
-
-
-                <h1>
-
-                    Pure Water.
-
-                    <span>Pure Trust.</span>
-
-                </h1>
-
-
-                <p class="hero-description">
-
-                    Fresh, hygienic and quality-focused drinking water
-                    delivered for homes, offices, businesses and events.
-
-                </p>
-
-
-                <!-- Hero Buttons -->
-
-                <div class="hero-buttons">
-
-                    <a href="#products" class="btn">
-
-                        Order Water
-
-                        <i class="fa-solid fa-arrow-right"></i>
-
-                    </a>
-
-
-                    <a href="#about" class="btn-outline">
-
-                        Discover More
-
-                    </a>
-
-                </div>
-
-
-                <!-- Hero Trust -->
-
-                <div class="hero-trust">
-
-                    <div class="trust-item">
-
+                    <div class="hero-badge">
                         <i class="fa-solid fa-shield-heart"></i>
 
-                        <span>
-                            Quality Focused
-                        </span>
+                        Pure Water • Pure Trust
+                    </div>
+
+                    <h1>
+                        Pure Water
+                        <span>Pure Life.</span>
+                    </h1>
+
+                    <p>
+                        Fresh, safe and hygienic drinking water
+                        delivered to your doorstep. Sanjay Water
+                        is committed to providing quality water
+                        for homes, offices, businesses and events.
+                    </p>
+
+
+                    <div class="hero-buttons">
+
+                        <button
+                            type="button"
+                            class="btn hero-order-btn"
+                            data-product=""
+                        >
+                            <i class="fa-solid fa-bottle-water"></i>
+                            Order Water
+                        </button>
+
+                        <a
+                            href="#products"
+                            class="btn-outline"
+                        >
+                            Explore Products
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
 
-                    <div class="trust-item">
+                    <!-- Hero Trust -->
+                    <div class="hero-trust">
 
-                        <i class="fa-solid fa-truck-fast"></i>
+                        <div class="trust-item">
 
-                        <span>
-                            Fast Delivery
-                        </span>
+                            <i class="fa-solid fa-circle-check"></i>
 
-                    </div>
+                            <div>
+                                <strong>Quality</strong>
+                                <span>First Priority</span>
+                            </div>
 
+                        </div>
 
-                    <div class="trust-item">
 
-                        <i class="fa-solid fa-droplet"></i>
+                        <div class="trust-item">
 
-                        <span>
-                            Fresh Water
-                        </span>
+                            <i class="fa-solid fa-truck-fast"></i>
 
-                    </div>
+                            <div>
+                                <strong>Fast</strong>
+                                <span>Delivery</span>
+                            </div>
 
-                </div>
+                        </div>
 
-            </div>
 
+                        <div class="trust-item">
 
-            <!-- Hero Image -->
+                            <i class="fa-solid fa-hand-holding-droplet"></i>
 
-            <div class="hero-image reveal">
-
-                <div class="hero-image-glow"></div>
-
-                <div class="hero-circle"></div>
-
-                <img
-                    src="assets/images/6.png"
-                    alt="Sanjay Water Premium Bottle"
-                >
-
-                <div class="floating-card quality-card">
-
-                    <div class="floating-icon">
-                        <i class="fa-solid fa-shield-heart"></i>
-                    </div>
-
-                    <div>
-
-                        <strong>Quality</strong>
-
-                        <span>Every Drop Matters</span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="floating-card delivery-card">
-
-                    <div class="floating-icon">
-                        <i class="fa-solid fa-truck-fast"></i>
-                    </div>
-
-                    <div>
-
-                        <strong>Fast Delivery</strong>
-
-                        <span>At Your Doorstep</span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- Hero bottom stats -->
-
-        <div class="hero-stats container">
-
-            <div class="hero-stat">
-
-                <strong>100%</strong>
-
-                <span>Quality Focus</span>
-
-            </div>
-
-
-            <div class="hero-stat">
-
-                <strong>RO + UV</strong>
-
-                <span>Purification</span>
-
-            </div>
-
-
-            <div class="hero-stat">
-
-                <strong>24×7</strong>
-
-                <span>Support</span>
-
-            </div>
-
-
-            <div class="hero-stat">
-
-                <strong>Fast</strong>
-
-                <span>Delivery</span>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ==============================
-         ABOUT
-    ================================= -->
-
-    <section id="about" class="about reveal">
-
-        <div class="container">
-
-
-            <div class="section-title">
-
-                <span class="section-label">
-                    ABOUT SANJAY WATER
-                </span>
-
-                <h2>
-                    Water You Can
-                    <span>Trust.</span>
-                </h2>
-
-                <p>
-                    Delivering trust with every drop.
-                </p>
-
-            </div>
-
-
-            <div class="about-wrapper">
-
-
-                <!-- Image -->
-
-                <div class="about-image">
-
-                    <div class="about-image-frame"></div>
-
-                    <img
-                        src="assets/images/2.png"
-                        alt="Sanjay Water Purification Plant"
-                    >
-
-                    <div class="about-badge">
-
-                        <i class="fa-solid fa-award"></i>
-
-                        <div>
-
-                            <strong>Trusted Quality</strong>
-
-                            <span>Every Single Day</span>
+                            <div>
+                                <strong>Fresh</strong>
+                                <span>Every Day</span>
+                            </div>
 
                         </div>
 
@@ -421,52 +241,190 @@
                 </div>
 
 
-                <!-- Content -->
+                <!-- Hero Image -->
+                <div class="hero-image">
 
-                <div class="about-content">
+                    <div class="hero-orbit orbit-one"></div>
+                    <div class="hero-orbit orbit-two"></div>
 
-                    <span class="mini-label">
-                        OUR PROMISE
+                    <div class="hero-glow"></div>
+
+                    <img
+                        src="assets/images/1.png"
+                        alt="Sanjay Water Bottle"
+                        loading="eager"
+                    >
+
+                    <div class="floating-card floating-card-one">
+
+                        <i class="fa-solid fa-droplet"></i>
+
+                        <div>
+                            <strong>100%</strong>
+                            <span>Fresh Water</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="floating-card floating-card-two">
+
+                        <i class="fa-solid fa-truck"></i>
+
+                        <div>
+                            <strong>Fast</strong>
+                            <span>Home Delivery</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STATS
+        ================================================== -->
+
+        <section class="stats-section">
+
+            <div class="container stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-droplet"></i>
+                    </div>
+
+                    <div>
+                        <strong>100%</strong>
+                        <span>Quality Focus</span>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+
+                    <div>
+                        <strong>Fast</strong>
+                        <span>Delivery Service</span>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-house"></i>
+                    </div>
+
+                    <div>
+                        <strong>Home</strong>
+                        <span>Doorstep Delivery</span>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+
+                    <div>
+                        <strong>Trusted</strong>
+                        <span>Customer Service</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ABOUT
+        ================================================== -->
+
+        <section
+            class="about"
+            id="about"
+        >
+
+            <div class="container about-wrapper">
+
+                <div class="about-image reveal">
+
+                    <div class="image-frame">
+
+                        <img
+                            src="assets/images/2.png"
+                            alt="Sanjay Water Pure Drinking Water"
+                            loading="lazy"
+                        >
+
+                        <div class="image-badge">
+                            <i class="fa-solid fa-certificate"></i>
+
+                            <div>
+                                <strong>Pure & Safe</strong>
+                                <span>Every Drop Matters</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="about-content reveal">
+
+                    <span class="section-tag">
+                        ABOUT SANJAY WATER
                     </span>
 
-
-                    <h3>
-                        Freshness you can feel.
-                        <span>Purity you can trust.</span>
-                    </h3>
-
+                    <h2>
+                        Water You Can
+                        <span>Trust Every Day.</span>
+                    </h2>
 
                     <p>
-                        Sanjay Water is committed to delivering clean,
-                        safe and quality-focused packaged drinking water
-                        for families, offices and businesses.
+                        At Sanjay Water, our goal is simple —
+                        provide clean, fresh and reliable drinking
+                        water to every customer.
                     </p>
 
-
                     <p>
-                        We focus on reliable service, hygienic handling
-                        and consistent quality so that every delivery
-                        gives you confidence.
+                        From homes and offices to shops,
+                        businesses and special events, we provide
+                        convenient water solutions according to
+                        your needs.
                     </p>
 
 
                     <div class="about-features">
 
-
                         <div class="feature">
 
-                            <div class="feature-icon">
-                                <i class="fa-solid fa-shield-heart"></i>
-                            </div>
+                            <i class="fa-solid fa-shield-halved"></i>
 
                             <div>
-
-                                <h4>Quality Focused</h4>
-
+                                <h4>Safe & Hygienic</h4>
                                 <p>
-                                    Water quality is our priority.
+                                    Clean water with quality-focused
+                                    handling.
                                 </p>
-
                             </div>
 
                         </div>
@@ -474,18 +432,13 @@
 
                         <div class="feature">
 
-                            <div class="feature-icon">
-                                <i class="fa-solid fa-filter"></i>
-                            </div>
+                            <i class="fa-solid fa-truck-fast"></i>
 
                             <div>
-
-                                <h4>RO + UV Technology</h4>
-
+                                <h4>Reliable Delivery</h4>
                                 <p>
-                                    Advanced purification process.
+                                    Convenient delivery for your needs.
                                 </p>
-
                             </div>
 
                         </div>
@@ -493,18 +446,13 @@
 
                         <div class="feature">
 
-                            <div class="feature-icon">
-                                <i class="fa-solid fa-truck-fast"></i>
-                            </div>
+                            <i class="fa-solid fa-clock"></i>
 
                             <div>
-
-                                <h4>Fast Delivery</h4>
-
+                                <h4>Quick Service</h4>
                                 <p>
-                                    Reliable doorstep delivery.
+                                    Fast response and easy ordering.
                                 </p>
-
                             </div>
 
                         </div>
@@ -512,374 +460,278 @@
 
                         <div class="feature">
 
-                            <div class="feature-icon">
-                                <i class="fa-solid fa-headset"></i>
-                            </div>
+                            <i class="fa-solid fa-heart"></i>
 
                             <div>
-
-                                <h4>Customer Support</h4>
-
+                                <h4>Customer First</h4>
                                 <p>
-                                    We're here when you need us.
+                                    Your satisfaction matters to us.
                                 </p>
-
                             </div>
 
                         </div>
 
-
                     </div>
 
                 </div>
 
             </div>
 
-        </div>
+        </section>
 
-    </section>
 
+        <!-- =================================================
+             PRODUCTS
+        ================================================== -->
 
-    <!-- ==============================
-         PRODUCTS
-    ================================= -->
+        <section
+            class="products"
+            id="products"
+        >
 
-    <section id="products" class="products reveal">
+            <div class="container">
 
-        <div class="container">
+                <div class="section-title reveal">
 
-
-            <div class="section-title">
-
-                <span class="section-label">
-                    OUR PRODUCTS
-                </span>
-
-                <h2>
-                    Pure Water for
-                    <span>Every Need.</span>
-                </h2>
-
-                <p>
-                    Choose the right water solution for your home,
-                    office or business.
-                </p>
-
-            </div>
-
-
-            <div class="product-grid">
-
-
-                <!-- 1L -->
-
-                <div class="product-card">
-
-                    <div class="product-image">
-
-                        <span class="product-tag">
-                            POPULAR
-                        </span>
-
-                        <img
-                            src="assets/images/1.png"
-                            alt="1L Sanjay Water Bottle"
-                        >
-
-                    </div>
-
-
-                    <div class="product-content">
-
-                        <span class="product-size">
-                            1 LITRE
-                        </span>
-
-                        <h3>
-                            1L Bottle
-                        </h3>
-
-                        <p>
-                            Premium packaged drinking water
-                            for everyday use.
-                        </p>
-
-
-                        <button
-                            type="button"
-                            class="card-btn order-btn"
-                            data-product="1L Bottle"
-                        >
-
-                            Order Now
-
-                            <i class="fa-solid fa-arrow-right"></i>
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <!-- 20L -->
-
-                <div class="product-card">
-
-                    <div class="product-image">
-
-                        <span class="product-tag">
-                            HOME & OFFICE
-                        </span>
-
-                        <img
-                            src="assets/images/4.png"
-                            alt="20L Sanjay Water Jar"
-                        >
-
-                    </div>
-
-
-                    <div class="product-content">
-
-                        <span class="product-size">
-                            20 LITRE
-                        </span>
-
-                        <h3>
-                            20L Jar
-                        </h3>
-
-                        <p>
-                            Ideal for homes, offices
-                            and institutions.
-                        </p>
-
-
-                        <button
-                            type="button"
-                            class="card-btn order-btn"
-                            data-product="20L Jar"
-                        >
-
-                            Order Now
-
-                            <i class="fa-solid fa-arrow-right"></i>
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Bulk -->
-
-                <div class="product-card">
-
-                    <div class="product-image">
-
-                        <span class="product-tag">
-                            BUSINESS
-                        </span>
-
-                        <img
-                            src="images/bulk.jpg"
-                            alt="Bulk Water Supply"
-                        >
-
-                    </div>
-
-
-                    <div class="product-content">
-
-                        <span class="product-size">
-                            BULK
-                        </span>
-
-                        <h3>
-                            Bulk Supply
-                        </h3>
-
-                        <p>
-                            Reliable water supply for
-                            events and businesses.
-                        </p>
-
-
-                        <button
-                            type="button"
-                            class="card-btn order-btn"
-                            data-product="Bulk Supply"
-                        >
-
-                            Get Quote
-
-                            <i class="fa-solid fa-arrow-right"></i>
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Home Delivery -->
-
-                <div class="product-card">
-
-                    <div class="product-image">
-
-                        <span class="product-tag">
-                            DOORSTEP
-                        </span>
-
-                        <img
-                            src="images/delivery.jpg"
-                            alt="Sanjay Water Home Delivery"
-                        >
-
-                    </div>
-
-
-                    <div class="product-content">
-
-                        <span class="product-size">
-                            DELIVERY
-                        </span>
-
-                        <h3>
-                            Home Delivery
-                        </h3>
-
-                        <p>
-                            Fresh drinking water delivered
-                            to your doorstep.
-                        </p>
-
-
-                        <button
-                            type="button"
-                            class="card-btn order-btn"
-                            data-product="Home Delivery"
-                        >
-
-                            Order Now
-
-                            <i class="fa-solid fa-arrow-right"></i>
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ==============================
-         SERVICES
-    ================================= -->
-
-    <section id="services" class="services reveal">
-
-        <div class="container">
-
-
-            <div class="section-title">
-
-                <span class="section-label">
-                    OUR SERVICES
-                </span>
-
-                <h2>
-                    Water Solutions
-                    <span>Made Simple.</span>
-                </h2>
-
-                <p>
-                    Reliable water solutions for homes and businesses.
-                </p>
-
-            </div>
-
-
-            <div class="service-grid">
-
-
-                <div class="service-card">
-
-                    <div class="service-icon">
-
-                        <i class="fa-solid fa-house"></i>
-
-                    </div>
-
-                    <span class="service-number">
-                        01
+                    <span class="section-tag">
+                        OUR PRODUCTS
                     </span>
 
-                    <h3>
-                        Home Delivery
-                    </h3>
+                    <h2>
+                        Choose What
+                        <span>You Need</span>
+                    </h2>
 
                     <p>
-                        Fresh drinking water delivered
-                        directly to your doorstep.
+                        Water solutions for every requirement.
                     </p>
-
-                    <a href="#products">
-                        Order Now
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
 
                 </div>
 
 
-                <div class="service-card">
+                <div class="product-grid">
 
-                    <div class="service-icon">
 
-                        <i class="fa-solid fa-building"></i>
+                    <!-- Product 1 -->
+                    <article class="product-card reveal">
 
-                    </div>
+                        <div class="product-image">
 
-                    <span class="service-number">
-                        02
+                            <img
+                                src="assets/images/1.png"
+                                alt="Packaged Drinking Water"
+                                loading="lazy"
+                            >
+
+                            <span class="product-badge">
+                                Popular
+                            </span>
+
+                        </div>
+
+                        <div class="product-content">
+
+                            <span class="product-label">
+                                DAILY USE
+                            </span>
+
+                            <h3>
+                                Packaged Drinking Water
+                            </h3>
+
+                            <p>
+                                Fresh and convenient drinking
+                                water for daily requirements.
+                            </p>
+
+                            <button
+                                type="button"
+                                class="card-btn order-btn"
+                                data-product="Packaged Drinking Water"
+                            >
+                                Order Now
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Product 2 -->
+                    <article class="product-card reveal">
+
+                        <div class="product-image">
+
+                            <img
+                                src="assets/images/2.png"
+                                alt="20 Litre Water Jar"
+                                loading="lazy"
+                            >
+
+                            <span class="product-badge">
+                                Home
+                            </span>
+
+                        </div>
+
+                        <div class="product-content">
+
+                            <span class="product-label">
+                                HOME & OFFICE
+                            </span>
+
+                            <h3>
+                                20 Litre Water Jar
+                            </h3>
+
+                            <p>
+                                Practical water solution for homes,
+                                offices and regular use.
+                            </p>
+
+                            <button
+                                type="button"
+                                class="card-btn order-btn"
+                                data-product="20 Litre Water Jar"
+                            >
+                                Order Now
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Product 3 -->
+                    <article class="product-card reveal">
+
+                        <div class="product-image">
+
+                            <img
+                                src="assets/images/4.png"
+                                alt="Bulk Water Supply"
+                                loading="lazy"
+                            >
+
+                            <span class="product-badge">
+                                Business
+                            </span>
+
+                        </div>
+
+                        <div class="product-content">
+
+                            <span class="product-label">
+                                BULK SUPPLY
+                            </span>
+
+                            <h3>
+                                Bulk Water Supply
+                            </h3>
+
+                            <p>
+                                Convenient bulk water supply for
+                                businesses and larger requirements.
+                            </p>
+
+                            <button
+                                type="button"
+                                class="card-btn order-btn"
+                                data-product="Bulk Water Supply"
+                            >
+                                Order Now
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Product 4 -->
+                    <article class="product-card reveal">
+
+                        <div class="product-image">
+
+                            <img
+                                src="assets/images/6.png"
+                                alt="Home Water Delivery"
+                                loading="lazy"
+                            >
+
+                            <span class="product-badge">
+                                Delivery
+                            </span>
+
+                        </div>
+
+                        <div class="product-content">
+
+                            <span class="product-label">
+                                DOORSTEP
+                            </span>
+
+                            <h3>
+                                Home Water Delivery
+                            </h3>
+
+                            <p>
+                                Get your water delivered conveniently
+                                to your doorstep.
+                            </p>
+
+                            <button
+                                type="button"
+                                class="card-btn order-btn"
+                                data-product="Home Water Delivery"
+                            >
+                                Order Now
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SERVICES
+        ================================================== -->
+
+        <section
+            class="services"
+            id="services"
+        >
+
+            <div class="container">
+
+                <div class="section-title reveal">
+
+                    <span class="section-tag">
+                        OUR SERVICES
                     </span>
 
-                    <h3>
-                        Office Supply
-                    </h3>
+                    <h2>
+                        Water Solutions
+                        <span>Made Easy</span>
+                    </h2>
 
                     <p>
-                        Daily and weekly water supply
-                        for offices and workplaces.
+                        Simple, reliable and convenient water services.
                     </p>
-
-                    <a href="#contact">
-                        Contact Us
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
 
                 </div>
 
 
-                <div class="service-card">
+                <div class="service-grid">
 
-                    <div class="service-icon">
 
-                        <i class="fa-solid fa-industry"></i>
-
-                    </div>
-
-                    <span class="service-number">
-                        03
-                    </span>
-
-         
+                
