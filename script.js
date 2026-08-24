@@ -1,101 +1,74 @@
-// your code goes here
-/* =========================================================
-   SANJAY WATER
-   PREMIUM FRONTEND JAVASCRIPT
-   Version: 2.0
-========================================================= */
-
 "use strict";
 
-document.addEventListener("DOMContentLoaded", () => {
+/* =========================================================
+   SANJAY WATER
+   FINAL STABLE JAVASCRIPT
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
 
     /* =====================================================
-       HELPER FUNCTIONS
+       HELPER
     ===================================================== */
 
-    const $ = (selector, parent = document) => {
-        return parent.querySelector(selector);
-    };
+    const $ = (selector) => document.querySelector(selector);
 
-    const $$ = (selector, parent = document) => {
-        return [...parent.querySelectorAll(selector)];
-    };
-
-    const exists = (element) => element !== null && element !== undefined;
-
-    const safeOn = (element, event, handler, options = {}) => {
-        if (exists(element)) {
-            element.addEventListener(event, handler, options);
-        }
-    };
-
-    const show = (element) => {
-        if (exists(element)) {
-            element.style.display = "flex";
-        }
-    };
-
-    const hide = (element) => {
-        if (exists(element)) {
-            element.style.display = "none";
-        }
-    };
+    const $$ = (selector) => document.querySelectorAll(selector);
 
 
     /* =====================================================
-       MOBILE NAVIGATION
+       ELEMENTS
     ===================================================== */
 
     const hamburger = $(".hamburger");
     const navLinks = $(".nav-links");
-
-    safeOn(hamburger, "click", () => {
-
-        if (!exists(navLinks)) return;
-
-        navLinks.classList.toggle("active");
-        hamburger.classList.toggle("active");
-
-    });
+    const header = $(".header");
+    const scrollTop = $("#scrollTop");
 
 
-    // Close mobile menu when clicking navigation link
-    $$(".nav-links a").forEach(link => {
+    /* =====================================================
+       MOBILE MENU
+    ===================================================== */
 
-        safeOn(link, "click", () => {
+    if (hamburger && navLinks) {
 
-            if (!exists(navLinks)) return;
+        hamburger.addEventListener("click", function () {
 
-            navLinks.classList.remove("active");
+            navLinks.classList.toggle("active");
+            hamburger.classList.toggle("active");
 
-            if (exists(hamburger)) {
-                hamburger.classList.remove("active");
-            }
+            hamburger.setAttribute(
+                "aria-expanded",
+                navLinks.classList.contains("active")
+            );
 
         });
 
-    });
+    }
 
 
-    // Close menu when clicking outside
-    safeOn(document, "click", (event) => {
+    /* =====================================================
+       CLOSE MOBILE MENU
+    ===================================================== */
 
-        if (!exists(hamburger) || !exists(navLinks)) return;
+    $$(".nav-links a").forEach(function (link) {
 
-        const clickedInsideMenu =
-            navLinks.contains(event.target);
+        link.addEventListener("click", function () {
 
-        const clickedHamburger =
-            hamburger.contains(event.target);
+            if (navLinks) {
+                navLinks.classList.remove("active");
+            }
 
-        if (
-            navLinks.classList.contains("active") &&
-            !clickedInsideMenu &&
-            !clickedHamburger
-        ) {
-            navLinks.classList.remove("active");
-            hamburger.classList.remove("active");
-        }
+            if (hamburger) {
+                hamburger.classList.remove("active");
+
+                hamburger.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+            }
+
+        });
 
     });
 
@@ -104,23 +77,26 @@ document.addEventListener("DOMContentLoaded", () => {
        SMOOTH SCROLL
     ===================================================== */
 
-    $$('a[href^="#"]').forEach(anchor => {
+    $$('a[href^="#"]').forEach(function (link) {
 
-        safeOn(anchor, "click", function (event) {
+        link.addEventListener("click", function (event) {
 
-            const href = this.getAttribute("href");
+            const targetId =
+                this.getAttribute("href");
 
             if (
-                !href ||
-                href === "#" ||
-                href.length < 2
+                !targetId ||
+                targetId === "#"
             ) {
                 return;
             }
 
-            const target = $(href);
+            const target =
+                document.querySelector(targetId);
 
-            if (!target) return;
+            if (!target) {
+                return;
+            }
 
             event.preventDefault();
 
@@ -135,189 +111,215 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       HEADER SCROLL EFFECT
+       HEADER SCROLL
     ===================================================== */
 
-    const header = $(".header");
+    function updateHeader() {
 
-    const handleHeader = () => {
-
-        if (!exists(header)) return;
+        if (!header) {
+            return;
+        }
 
         if (window.scrollY > 40) {
 
-            header.style.boxShadow =
-                "0 8px 25px rgba(0,0,0,.08)";
+            header.classList.add("scrolled");
 
         } else {
 
-            header.style.boxShadow = "none";
+            header.classList.remove("scrolled");
 
         }
 
-    };
-
-    safeOn(window, "scroll", handleHeader, {
-        passive: true
-    });
-
-    handleHeader();
+    }
 
 
-    /* =====================================================
-       SCROLL TO TOP
-    ===================================================== */
+    window.addEventListener(
+        "scroll",
+        updateHeader,
+        { passive: true }
+    );
 
-    const scrollButtons = [
-        ...new Set(
-            $$("#scrollTop")
-        )
-    ];
-
-    const updateScrollTop = () => {
-
-        scrollButtons.forEach(button => {
-
-            if (window.scrollY > 400) {
-
-                button.style.display = "flex";
-                button.style.justifyContent = "center";
-                button.style.alignItems = "center";
-
-            } else {
-
-                button.style.display = "none";
-
-            }
-
-        });
-
-    };
-
-    safeOn(window, "scroll", updateScrollTop, {
-        passive: true
-    });
-
-    updateScrollTop();
-
-
-    scrollButtons.forEach(button => {
-
-        safeOn(button, "click", () => {
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-        });
-
-    });
+    updateHeader();
 
 
     /* =====================================================
        SCROLL REVEAL
+       
+       IMPORTANT:
+       CSS uses .reveal.show
+       NOT .reveal.active
     ===================================================== */
 
-    const revealElements = $$(".reveal");
+    const revealElements =
+        $$(".reveal");
 
-    if ("IntersectionObserver" in window) {
 
-        const revealObserver = new IntersectionObserver(
-            (entries, observer) => {
+    function revealSections() {
 
-                entries.forEach(entry => {
+        const windowHeight =
+            window.innerHeight;
 
-                    if (entry.isIntersecting) {
 
-                        entry.target.classList.add("active");
+        revealElements.forEach(function (element) {
 
-                        observer.unobserve(entry.target);
+            const position =
+                element.getBoundingClientRect().top;
 
-                    }
 
-                });
+            if (
+                position <
+                windowHeight - 80
+            ) {
 
-            },
-            {
-                threshold: 0.08,
-                rootMargin: "0px 0px -80px 0px"
+                element.classList.add("show");
+
             }
-        );
-
-        revealElements.forEach(element => {
-
-            revealObserver.observe(element);
-
-        });
-
-    } else {
-
-        revealElements.forEach(element => {
-
-            element.classList.add("active");
 
         });
 
     }
 
 
+    window.addEventListener(
+        "scroll",
+        revealSections,
+        { passive: true }
+    );
+
+
+    window.addEventListener(
+        "load",
+        revealSections
+    );
+
+
+    // Initial check
+    revealSections();
+
+
     /* =====================================================
        ACTIVE NAVIGATION
     ===================================================== */
 
-    const navItems = $$(".nav-links a");
+    const sections =
+        $$("section[id]");
 
-    const pageSections = $$(
-        "section[id]"
-    );
+    const navItems =
+        $$(".nav-links a");
 
-    const updateActiveNav = () => {
 
-        if (!pageSections.length) return;
+    function updateActiveNavigation() {
 
         let currentSection = "";
+
 
         const scrollPosition =
             window.scrollY + 160;
 
-        pageSections.forEach(section => {
 
-            const top = section.offsetTop;
-            const height = section.offsetHeight;
+        sections.forEach(function (section) {
+
+            const top =
+                section.offsetTop;
+
+            const height =
+                section.offsetHeight;
+
 
             if (
                 scrollPosition >= top &&
                 scrollPosition < top + height
             ) {
+
                 currentSection =
                     section.getAttribute("id");
+
             }
 
         });
 
-        navItems.forEach(link => {
+
+        navItems.forEach(function (link) {
 
             link.classList.remove("active");
+
 
             const href =
                 link.getAttribute("href");
 
+
             if (
                 href === "#" + currentSection
             ) {
+
                 link.classList.add("active");
+
             }
 
         });
 
-    };
+    }
 
-    safeOn(window, "scroll", updateActiveNav, {
-        passive: true
-    });
 
-    updateActiveNav();
+    window.addEventListener(
+        "scroll",
+        updateActiveNavigation,
+        { passive: true }
+    );
+
+
+    updateActiveNavigation();
+
+
+    /* =====================================================
+       SCROLL TO TOP
+    ===================================================== */
+
+    function updateScrollTop() {
+
+        if (!scrollTop) {
+            return;
+        }
+
+
+        if (window.scrollY > 400) {
+
+            scrollTop.classList.add("show");
+
+        } else {
+
+            scrollTop.classList.remove("show");
+
+        }
+
+    }
+
+
+    window.addEventListener(
+        "scroll",
+        updateScrollTop,
+        { passive: true }
+    );
+
+
+    updateScrollTop();
+
+
+    if (scrollTop) {
+
+        scrollTop.addEventListener(
+            "click",
+            function () {
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            }
+        );
+
+    }
 
 
     /* =====================================================
@@ -333,116 +335,102 @@ document.addEventListener("DOMContentLoaded", () => {
     const nextButton =
         $(".next");
 
+
     let currentSlide = 0;
 
-    let testimonialTimer = null;
 
-    const showTestimonial = (index) => {
+    function showSlide(index) {
 
-        if (!testimonials.length) return;
-
-        currentSlide =
-            (index + testimonials.length) %
-            testimonials.length;
-
-        testimonials.forEach((slide, i) => {
-
-            slide.classList.toggle(
-                "active",
-                i === currentSlide
-            );
-
-        });
-
-    };
-
-
-    const nextTestimonial = () => {
-
-        showTestimonial(currentSlide + 1);
-
-    };
-
-
-    const previousTestimonial = () => {
-
-        showTestimonial(currentSlide - 1);
-
-    };
-
-
-    const startTestimonialAutoPlay = () => {
-
-        if (testimonials.length <= 1) return;
-
-        clearInterval(testimonialTimer);
-
-        testimonialTimer =
-            setInterval(
-                nextTestimonial,
-                5000
-            );
-
-    };
-
-
-    const stopTestimonialAutoPlay = () => {
-
-        clearInterval(testimonialTimer);
-
-    };
-
-
-    safeOn(
-        nextButton,
-        "click",
-        () => {
-
-            nextTestimonial();
-            startTestimonialAutoPlay();
-
+        if (!testimonials.length) {
+            return;
         }
-    );
 
 
-    safeOn(
-        previousButton,
-        "click",
-        () => {
-
-            previousTestimonial();
-            startTestimonialAutoPlay();
-
+        if (index >= testimonials.length) {
+            index = 0;
         }
-    );
+
+
+        if (index < 0) {
+            index =
+                testimonials.length - 1;
+        }
+
+
+        currentSlide = index;
+
+
+        testimonials.forEach(
+            function (slide, i) {
+
+                slide.classList.toggle(
+                    "active",
+                    i === currentSlide
+                );
+
+            }
+        );
+
+    }
 
 
     if (testimonials.length) {
 
-        showTestimonial(0);
-        startTestimonialAutoPlay();
+        showSlide(0);
+
+    }
+
+
+    if (nextButton) {
+
+        nextButton.addEventListener(
+            "click",
+            function () {
+
+                showSlide(
+                    currentSlide + 1
+                );
+
+            }
+        );
+
+    }
+
+
+    if (previousButton) {
+
+        previousButton.addEventListener(
+            "click",
+            function () {
+
+                showSlide(
+                    currentSlide - 1
+                );
+
+            }
+        );
 
     }
 
 
     /* =====================================================
-       PAUSE SLIDER ON HOVER
+       AUTO TESTIMONIAL SLIDER
     ===================================================== */
 
-    const testimonialArea =
-        $(".testimonial-slider");
+    if (testimonials.length > 1) {
 
-    safeOn(
-        testimonialArea,
-        "mouseenter",
-        stopTestimonialAutoPlay
-    );
+        setInterval(
+            function () {
 
-    safeOn(
-        testimonialArea,
-        "mouseleave",
-        startTestimonialAutoPlay
-    );
+                showSlide(
+                    currentSlide + 1
+                );
+
+            },
+            5000
+        );
+
+    }
 
 
     /* =====================================================
@@ -452,232 +440,239 @@ document.addEventListener("DOMContentLoaded", () => {
     const contactForm =
         $("#contactForm");
 
-    const contactName =
+    const nameInput =
         $("#name");
 
-    const contactEmail =
+    const emailInput =
         $("#email");
 
-    const contactPhone =
+    const phoneInput =
         $("#phone");
 
-    const contactMessage =
+    const messageInput =
         $("#message");
 
     const formMessage =
         $("#formMessage");
 
 
-    const showContactMessage =
-        (text, type = "red") => {
+    function showMessage(
+        text,
+        color
+    ) {
 
-            if (!exists(formMessage)) return;
-
-            formMessage.textContent = text;
-
-            formMessage.style.color =
-                type === "green"
-                    ? "#16a34a"
-                    : "#dc2626";
-
-        };
-
-
-    safeOn(
-        contactPhone,
-        "input",
-        () => {
-
-            contactPhone.value =
-                contactPhone.value
-                    .replace(/\D/g, "")
-                    .slice(0, 10);
-
+        if (!formMessage) {
+            return;
         }
-    );
+
+        formMessage.textContent =
+            text;
+
+        formMessage.style.color =
+            color;
 
 
-    safeOn(
-        contactForm,
-        "submit",
-        event => {
+        setTimeout(
+            function () {
 
-            event.preventDefault();
+                if (formMessage) {
+                    formMessage.textContent =
+                        "";
+                }
 
-            const name =
-                contactName?.value.trim() || "";
+            },
+            4000
+        );
 
-            const email =
-                contactEmail?.value.trim() || "";
-
-            const phone =
-                contactPhone?.value.trim() || "";
-
-            const message =
-                contactMessage?.value.trim() || "";
+    }
 
 
-            if (name.length < 2) {
+    /* Phone filter */
 
-                showContactMessage(
-                    "Please enter your name."
-                );
+    if (phoneInput) {
 
-                contactName?.focus();
+        phoneInput.addEventListener(
+            "input",
+            function () {
 
-                return;
-
-            }
-
-
-            const emailPattern =
-                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-
-            if (!emailPattern.test(email)) {
-
-                showContactMessage(
-                    "Please enter a valid email."
-                );
-
-                contactEmail?.focus();
-
-                return;
+                this.value =
+                    this.value
+                        .replace(/\D/g, "")
+                        .slice(0, 10);
 
             }
+        );
+
+    }
 
 
-            const phonePattern =
-                /^[6-9][0-9]{9}$/;
+    /* Contact submit */
+
+    if (contactForm) {
+
+        contactForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
 
 
-            if (!phonePattern.test(phone)) {
+                const name =
+                    nameInput
+                        ? nameInput.value.trim()
+                        : "";
 
-                showContactMessage(
-                    "Please enter a valid 10 digit mobile number."
+
+                const email =
+                    emailInput
+                        ? emailInput.value.trim()
+                        : "";
+
+
+                const phone =
+                    phoneInput
+                        ? phoneInput.value.trim()
+                        : "";
+
+
+                const message =
+                    messageInput
+                        ? messageInput.value.trim()
+                        : "";
+
+
+                /* Name */
+
+                if (name.length < 2) {
+
+                    showMessage(
+                        "Please enter your name.",
+                        "red"
+                    );
+
+                    if (nameInput) {
+                        nameInput.focus();
+                    }
+
+                    return;
+
+                }
+
+
+                /* Email */
+
+                const emailPattern =
+                    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+                if (
+                    !emailPattern.test(email)
+                ) {
+
+                    showMessage(
+                        "Please enter a valid email.",
+                        "red"
+                    );
+
+                    if (emailInput) {
+                        emailInput.focus();
+                    }
+
+                    return;
+
+                }
+
+
+                /* Phone */
+
+                const phonePattern =
+                    /^[6-9][0-9]{9}$/;
+
+
+                if (
+                    !phonePattern.test(phone)
+                ) {
+
+                    showMessage(
+                        "Phone number must be 10 digits.",
+                        "red"
+                    );
+
+                    if (phoneInput) {
+                        phoneInput.focus();
+                    }
+
+                    return;
+
+                }
+
+
+                /* Message */
+
+                if (message.length < 10) {
+
+                    showMessage(
+                        "Message should be at least 10 characters.",
+                        "red"
+                    );
+
+                    if (messageInput) {
+                        messageInput.focus();
+                    }
+
+                    return;
+
+                }
+
+
+                showMessage(
+                    "✅ Message sent successfully!",
+                    "green"
                 );
 
-                contactPhone?.focus();
 
-                return;
-
-            }
-
-
-            if (message.length < 10) {
-
-                showContactMessage(
-                    "Message should be at least 10 characters."
-                );
-
-                contactMessage?.focus();
-
-                return;
+                contactForm.reset();
 
             }
+        );
+
+    }
 
 
-            showContactMessage(
-                "✅ Message ready! We will contact you soon.",
-                "green"
+    /* =====================================================
+       GALLERY HOVER
+    ===================================================== */
+
+    $$(".gallery img").forEach(
+        function (image) {
+
+            image.addEventListener(
+                "mouseenter",
+                function () {
+
+                    image.style.transform =
+                        "scale(1.05)";
+
+                }
             );
 
 
-            // Save contact inquiry locally
-            const inquiry = {
+            image.addEventListener(
+                "mouseleave",
+                function () {
 
-                name,
-                email,
-                phone,
-                message,
+                    image.style.transform =
+                        "";
 
-                createdAt:
-                    new Date().toISOString()
-
-            };
-
-
-            try {
-
-                const oldInquiries =
-                    JSON.parse(
-                        localStorage.getItem(
-                            "sanjayWaterInquiries"
-                        ) || "[]"
-                    );
-
-
-                oldInquiries.push(inquiry);
-
-
-                localStorage.setItem(
-                    "sanjayWaterInquiries",
-                    JSON.stringify(oldInquiries)
-                );
-
-            } catch (error) {
-
-                console.warn(
-                    "Could not save inquiry:",
-                    error
-                );
-
-            }
-
-
-            contactForm.reset();
-
-
-            setTimeout(() => {
-
-                if (exists(formMessage)) {
-                    formMessage.textContent = "";
                 }
-
-            }, 5000);
+            );
 
         }
     );
 
 
     /* =====================================================
-       GALLERY IMAGE HOVER
-    ===================================================== */
-
-    const galleryImages =
-        $$(".gallery img");
-
-
-    galleryImages.forEach(image => {
-
-        safeOn(
-            image,
-            "mouseenter",
-            () => {
-
-                image.style.transform =
-                    "scale(1.05)";
-
-            }
-        );
-
-
-        safeOn(
-            image,
-            "mouseleave",
-            () => {
-
-                image.style.transform =
-                    "scale(1)";
-
-            }
-        );
-
-    });
-
-
-    /* =====================================================
-       IMAGE LIGHTBOX
+       GALLERY LIGHTBOX
     ===================================================== */
 
     const lightbox =
@@ -690,53 +685,52 @@ document.addEventListener("DOMContentLoaded", () => {
         $("#lightboxClose");
 
 
-    const openLightbox =
-        (image) => {
+    function openLightbox(image) {
 
-            if (
-                !exists(lightbox) ||
-                !exists(lightboxImage) ||
-                !exists(image)
-            ) {
-                return;
-            }
+        if (
+            !lightbox ||
+            !lightboxImage
+        ) {
+            return;
+        }
 
 
-            const source =
-                image.currentSrc ||
-                image.src;
+        lightboxImage.src =
+            image.src;
+
+        lightboxImage.alt =
+            image.alt ||
+            "Sanjay Water";
 
 
-            if (!source) return;
+        lightbox.classList.add(
+            "active"
+        );
 
 
-            lightboxImage.src = source;
-
-            lightboxImage.alt =
-                image.alt ||
-                "Sanjay Water Gallery";
-
-
-            lightbox.classList.add("active");
-
-            lightbox.setAttribute(
-                "aria-hidden",
-                "false"
-            );
+        lightbox.setAttribute(
+            "aria-hidden",
+            "false"
+        );
 
 
-            document.body.style.overflow =
-                "hidden";
+        document.body.style.overflow =
+            "hidden";
 
-        };
-
-
-    const closeLightbox = () => {
-
-        if (!exists(lightbox)) return;
+    }
 
 
-        lightbox.classList.remove("active");
+    function closeLightbox() {
+
+        if (!lightbox) {
+            return;
+        }
+
+
+        lightbox.classList.remove(
+            "active"
+        );
+
 
         lightbox.setAttribute(
             "aria-hidden",
@@ -747,40 +741,53 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.style.overflow =
             "";
 
-    };
+    }
 
 
-    galleryImages.forEach(image => {
+    $$(".gallery img").forEach(
+        function (image) {
 
-        safeOn(
-            image,
-            "click",
-            () => openLightbox(image)
-        );
+            image.addEventListener(
+                "click",
+                function () {
 
-    });
+                    openLightbox(image);
 
-
-    safeOn(
-        lightboxClose,
-        "click",
-        closeLightbox
-    );
-
-
-    safeOn(
-        lightbox,
-        "click",
-        event => {
-
-            if (
-                event.target === lightbox
-            ) {
-                closeLightbox();
-            }
+                }
+            );
 
         }
     );
+
+
+    if (lightboxClose) {
+
+        lightboxClose.addEventListener(
+            "click",
+            closeLightbox
+        );
+
+    }
+
+
+    if (lightbox) {
+
+        lightbox.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target === lightbox
+                ) {
+
+                    closeLightbox();
+
+                }
+
+            }
+        );
+
+    }
 
 
     /* =====================================================
@@ -790,7 +797,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const orderModal =
         $("#orderModal");
 
-    const closeOrderButton =
+    const closeOrder =
         $("#closeOrder");
 
     const orderForm =
@@ -814,6 +821,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const orderMessage =
         $("#orderMessage");
 
+
     const orderButtons =
         $$(".order-btn");
 
@@ -822,66 +830,78 @@ document.addEventListener("DOMContentLoaded", () => {
        OPEN ORDER MODAL
     ===================================================== */
 
-    const openOrderModal =
-        (product = "") => {
+    function openOrderModal(
+        product = ""
+    ) {
 
-            if (!exists(orderModal)) return;
-
-
-            orderModal.classList.add("active");
-
-            orderModal.setAttribute(
-                "aria-hidden",
-                "false"
-            );
+        if (!orderModal) {
+            return;
+        }
 
 
-            document.body.style.overflow =
-                "hidden";
+        orderModal.classList.add(
+            "active"
+        );
 
 
-            if (
-                exists(orderProduct) &&
-                product
-            ) {
-
-                orderProduct.value =
-                    product;
-
-            }
+        orderModal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
 
 
-            if (exists(orderMessage)) {
-
-                orderMessage.textContent = "";
-
-            }
+        document.body.style.overflow =
+            "hidden";
 
 
-            // Focus product after animation
-            setTimeout(() => {
+        if (
+            orderProduct &&
+            product
+        ) {
 
-                if (exists(orderProduct)) {
+            orderProduct.value =
+                product;
 
+        }
+
+
+        if (orderMessage) {
+
+            orderMessage.textContent =
+                "";
+
+        }
+
+
+        setTimeout(
+            function () {
+
+                if (orderProduct) {
                     orderProduct.focus();
-
                 }
 
-            }, 150);
+            },
+            150
+        );
 
-        };
+    }
 
 
     /* =====================================================
        CLOSE ORDER MODAL
     ===================================================== */
 
-    const closeOrderModal = () => {
+    function closeOrderModal() {
 
-        if (!exists(orderModal)) return;
+        if (!orderModal) {
+            return;
+        }
 
 
-        orderModal.classList.remove("active");
+        orderModal.classList.remove(
+            "active"
+        );
+
 
         orderModal.setAttribute(
             "aria-hidden",
@@ -892,32 +912,79 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.style.overflow =
             "";
 
-    };
+    }
 
 
     /* =====================================================
        PRODUCT ORDER BUTTONS
     ===================================================== */
 
-    orderButtons.forEach(button => {
+    orderButtons.forEach(
+        function (button) {
 
-        safeOn(
-            button,
+            button.addEventListener(
+                "click",
+                function () {
+
+                    const product =
+                        button.getAttribute(
+                            "data-product"
+                        ) || "";
+
+
+                    openOrderModal(
+                        product
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       HERO ORDER BUTTON
+    ===================================================== */
+
+    const heroOrderButton =
+        $(".hero-order-btn");
+
+
+    if (heroOrderButton) {
+
+        heroOrderButton.addEventListener(
             "click",
-            () => {
+            function () {
 
-                const product =
-                    button.getAttribute(
-                        "data-product"
-                    ) || "";
-
-
-                openOrderModal(product);
+                openOrderModal("");
 
             }
         );
 
-    });
+    }
+
+
+    /* =====================================================
+       NAV ORDER BUTTON
+    ===================================================== */
+
+    const navOrderButton =
+        $("#navOrderBtn");
+
+
+    if (navOrderButton) {
+
+        navOrderButton.addEventListener(
+            "click",
+            function () {
+
+                openOrderModal("");
+
+            }
+        );
+
+    }
 
 
     /* =====================================================
@@ -928,15 +995,18 @@ document.addEventListener("DOMContentLoaded", () => {
         $("#ctaOrderBtn");
 
 
-    safeOn(
-        ctaOrderButton,
-        "click",
-        () => {
+    if (ctaOrderButton) {
 
-            openOrderModal();
+        ctaOrderButton.addEventListener(
+            "click",
+            function () {
 
-        }
-    );
+                openOrderModal("");
+
+            }
+        );
+
+    }
 
 
     /* =====================================================
@@ -947,478 +1017,448 @@ document.addEventListener("DOMContentLoaded", () => {
         $("#footerOrderBtn");
 
 
-    safeOn(
-        footerOrderButton,
-        "click",
-        () => {
+    if (footerOrderButton) {
 
-            openOrderModal();
+        footerOrderButton.addEventListener(
+            "click",
+            function () {
 
-        }
-    );
-
-
-    /* =====================================================
-       CLOSE ORDER BUTTON
-    ===================================================== */
-
-    safeOn(
-        closeOrderButton,
-        "click",
-        closeOrderModal
-    );
-
-
-    /* =====================================================
-       CLOSE ORDER ON OUTSIDE CLICK
-    ===================================================== */
-
-    safeOn(
-        orderModal,
-        "click",
-        event => {
-
-            if (
-                event.target === orderModal
-            ) {
-
-                closeOrderModal();
+                openOrderModal("");
 
             }
+        );
 
-        }
-    );
+    }
 
 
     /* =====================================================
-       PHONE NUMBER FILTER
+       CLOSE ORDER
     ===================================================== */
 
-    safeOn(
-        orderPhone,
-        "input",
-        () => {
+    if (closeOrder) {
 
-            orderPhone.value =
-                orderPhone.value
-                    .replace(/\D/g, "")
-                    .slice(0, 10);
+        closeOrder.addEventListener(
+            "click",
+            closeOrderModal
+        );
 
-        }
-    );
+    }
+
+
+    /* Outside click */
+
+    if (orderModal) {
+
+        orderModal.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target === orderModal
+                ) {
+
+                    closeOrderModal();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       ORDER PHONE
+    ===================================================== */
+
+    if (orderPhone) {
+
+        orderPhone.addEventListener(
+            "input",
+            function () {
+
+                this.value =
+                    this.value
+                        .replace(/\D/g, "")
+                        .slice(0, 10);
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       ORDER QUANTITY
+    ===================================================== */
+
+    if (orderQuantity) {
+
+        orderQuantity.addEventListener(
+            "input",
+            function () {
+
+                let value =
+                    Number(this.value);
+
+
+                if (!Number.isFinite(value)) {
+                    value = 1;
+                }
+
+
+                if (value < 1) {
+                    value = 1;
+                }
+
+
+                if (value > 999) {
+                    value = 999;
+                }
+
+
+                this.value =
+                    value;
+
+            }
+        );
+
+    }
 
 
     /* =====================================================
        ORDER MESSAGE
     ===================================================== */
 
-    const showOrderMessage =
-        (text, type = "red") => {
+    function showOrderMessage(
+        text,
+        color
+    ) {
 
-            if (!exists(orderMessage)) return;
+        if (!orderMessage) {
+            return;
+        }
 
 
-            orderMessage.textContent =
-                text;
+        orderMessage.textContent =
+            text;
 
+        orderMessage.style.color =
+            color;
 
-            orderMessage.style.color =
-                type === "green"
-                    ? "#16a34a"
-                    : "#dc2626";
-
-        };
+    }
 
 
     /* =====================================================
-       ORDER ID GENERATOR
+       ORDER ID
     ===================================================== */
 
-    const generateOrderID = () => {
-
-        const date =
-            new Date();
-
-
-        const datePart =
-            String(
-                date.getDate()
-            ).padStart(2, "0") +
-            String(
-                date.getMonth() + 1
-            ).padStart(2, "0");
-
-
-        const randomPart =
-            Math.floor(
-                1000 + Math.random() * 9000
-            );
-
+    function generateOrderID() {
 
         return (
             "SW-" +
-            datePart +
-            "-" +
-            randomPart
+            Date.now()
+                .toString()
+                .slice(-8)
         );
 
-    };
+    }
 
 
     /* =====================================================
        ORDER FORM SUBMIT
     ===================================================== */
 
-    let orderSubmitting = false;
+    if (orderForm) {
 
+        orderForm.addEventListener(
+            "submit",
+            function (event) {
 
-    safeOn(
-        orderForm,
-        "submit",
-        event => {
+                event.preventDefault();
 
-            event.preventDefault();
 
+                const product =
+                    orderProduct
+                        ? orderProduct.value.trim()
+                        : "";
 
-            if (orderSubmitting) {
-                return;
-            }
 
+                const quantity =
+                    orderQuantity
+                        ? Number(
+                            orderQuantity.value
+                        )
+                        : 0;
 
-            const product =
-                orderProduct?.value.trim() || "";
 
+                const name =
+                    orderName
+                        ? orderName.value.trim()
+                        : "";
 
-            const quantity =
-                Number(
-                    orderQuantity?.value
-                );
 
+                const phone =
+                    orderPhone
+                        ? orderPhone.value.trim()
+                        : "";
 
-            const name =
-                orderName?.value.trim() || "";
 
+                const address =
+                    orderAddress
+                        ? orderAddress.value.trim()
+                        : "";
 
-            const phone =
-                orderPhone?.value.trim() || "";
 
+                /* Product */
 
-            const address =
-                orderAddress?.value.trim() || "";
+                if (!product) {
 
+                    showOrderMessage(
+                        "Please select a water product.",
+                        "red"
+                    );
 
-            const payment =
-                $(
-                    'input[name="paymentMethod"]:checked',
-                    orderForm
-                );
+                    if (orderProduct) {
+                        orderProduct.focus();
+                    }
 
+                    return;
 
-            /* -----------------------------------------
-               PRODUCT
-            ----------------------------------------- */
+                }
 
-            if (!product) {
 
-                showOrderMessage(
-                    "Please select a water product."
-                );
+                /* Quantity */
 
-                orderProduct?.focus();
+                if (
+                    !Number.isFinite(quantity) ||
+                    quantity < 1
+                ) {
 
-                return;
+                    showOrderMessage(
+                        "Please enter a valid quantity.",
+                        "red"
+                    );
 
-            }
+                    if (orderQuantity) {
+                        orderQuantity.focus();
+                    }
 
+                    return;
 
-            /* -----------------------------------------
-               QUANTITY
-            ----------------------------------------- */
+                }
 
-            if (
-                !Number.isFinite(quantity) ||
-                quantity < 1 ||
-                quantity > 999
-            ) {
 
-                showOrderMessage(
-                    "Please enter a valid quantity."
-                );
+                /* Name */
 
-                orderQuantity?.focus();
+                if (name.length < 2) {
 
-                return;
+                    showOrderMessage(
+                        "Please enter your full name.",
+                        "red"
+                    );
 
-            }
+                    if (orderName) {
+                        orderName.focus();
+                    }
 
+                    return;
 
-            /* -----------------------------------------
-               NAME
-            ----------------------------------------- */
+                }
 
-            if (name.length < 2) {
 
-                showOrderMessage(
-                    "Please enter your full name."
-                );
+                /* Phone */
 
-                orderName?.focus();
+                const phonePattern =
+                    /^[6-9][0-9]{9}$/;
 
-                return;
 
-            }
+                if (
+                    !phonePattern.test(phone)
+                ) {
 
+                    showOrderMessage(
+                        "Please enter a valid 10 digit mobile number.",
+                        "red"
+                    );
 
-            /* -----------------------------------------
-               PHONE
-            ----------------------------------------- */
+                    if (orderPhone) {
+                        orderPhone.focus();
+                    }
 
-            const phonePattern =
-                /^[6-9][0-9]{9}$/;
+                    return;
 
+                }
 
-            if (!phonePattern.test(phone)) {
 
-                showOrderMessage(
-                    "Please enter a valid 10 digit mobile number."
-                );
+                /* Address */
 
-                orderPhone?.focus();
+                if (address.length < 10) {
 
-                return;
+                    showOrderMessage(
+                        "Please enter your complete delivery address.",
+                        "red"
+                    );
 
-            }
+                    if (orderAddress) {
+                        orderAddress.focus();
+                    }
 
+                    return;
 
-            /* -----------------------------------------
-               ADDRESS
-            ----------------------------------------- */
+                }
 
-            if (address.length < 10) {
 
-                showOrderMessage(
-                    "Please enter your complete delivery address."
-                );
+                /* Payment */
 
-                orderAddress?.focus();
-
-                return;
-
-            }
-
-
-            /* -----------------------------------------
-               PAYMENT
-            ----------------------------------------- */
-
-            const paymentMethod =
-                payment
-                    ? payment.value
-                    : "Cash on Delivery";
-
-
-            /* -----------------------------------------
-               CREATE ORDER
-            ----------------------------------------- */
-
-            const orderID =
-                generateOrderID();
-
-
-            const order = {
-
-                orderId: orderID,
-
-                product: product,
-
-                quantity: quantity,
-
-                customerName: name,
-
-                phone: phone,
-
-                address: address,
-
-                paymentMethod:
-                    paymentMethod,
-
-                status: "Pending",
-
-                createdAt:
-                    new Date().toISOString()
-
-            };
-
-
-            /* -----------------------------------------
-               SAVE ORDER LOCALLY
-               UNTIL DATABASE IS CONNECTED
-            ----------------------------------------- */
-
-            try {
-
-                const previousOrders =
-                    JSON.parse(
-                        localStorage.getItem(
-                            "sanjayWaterOrders"
-                        ) || "[]"
+                const selectedPayment =
+                    document.querySelector(
+                        'input[name="paymentMethod"]:checked'
                     );
 
 
-                previousOrders.push(order);
+                const paymentMethod =
+                    selectedPayment
+                        ? selectedPayment.value
+                        : "Cash on Delivery";
 
 
-                localStorage.setItem(
-                    "sanjayWaterOrders",
-                    JSON.stringify(
-                        previousOrders
-                    )
+                /* Order ID */
+
+                const orderId =
+                    generateOrderID();
+
+
+                /* Order object */
+
+                const order = {
+
+                    orderId:
+                        orderId,
+
+                    product:
+                        product,
+
+                    quantity:
+                        quantity,
+
+                    customerName:
+                        name,
+
+                    phone:
+                        phone,
+
+                    address:
+                        address,
+
+                    paymentMethod:
+                        paymentMethod,
+
+                    status:
+                        "Pending",
+
+                    createdAt:
+                        new Date().toISOString()
+
+                };
+
+
+                /* Save locally */
+
+                try {
+
+                    const orders =
+                        JSON.parse(
+                            localStorage.getItem(
+                                "sanjayWaterOrders"
+                            ) || "[]"
+                        );
+
+
+                    orders.push(order);
+
+
+                    localStorage.setItem(
+                        "sanjayWaterOrders",
+                        JSON.stringify(orders)
+                    );
+
+                } catch (error) {
+
+                    console.warn(
+                        "Local storage unavailable:",
+                        error
+                    );
+
+                }
+
+
+                /* Success */
+
+                showOrderMessage(
+                    "✅ Order ready! Order ID: " +
+                    orderId,
+                    "green"
                 );
 
-            } catch (error) {
 
-                console.warn(
-                    "Local order storage failed:",
-                    error
+                console.log(
+                    "💧 Sanjay Water Order:",
+                    order
+                );
+
+
+                /* Reset */
+
+                setTimeout(
+                    function () {
+
+                        orderForm.reset();
+
+                        closeOrderModal();
+
+                    },
+                    2500
                 );
 
             }
+        );
 
-
-            /* -----------------------------------------
-               BUTTON LOADING
-            ----------------------------------------- */
-
-            const submitButton =
-                $(".order-submit", orderForm);
-
-
-            orderSubmitting = true;
-
-
-            if (exists(submitButton)) {
-
-                submitButton.disabled = true;
-
-                submitButton.dataset.originalText =
-                    submitButton.innerHTML;
-
-
-                submitButton.innerHTML =
-                    '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
-
-            }
-
-
-            /* -----------------------------------------
-               SUCCESS
-            ----------------------------------------- */
-
-            showOrderMessage(
-                "✅ Order placed successfully! Order ID: " +
-                orderID,
-                "green"
-            );
-
-
-            console.log(
-                "%c SANJAY WATER ORDER ",
-                "background:#063B5C;color:white;font-weight:bold;padding:6px;",
-                order
-            );
-
-
-            /* -----------------------------------------
-               SUCCESS CLEANUP
-            ----------------------------------------- */
-
-            setTimeout(() => {
-
-                if (exists(orderForm)) {
-                    orderForm.reset();
-                }
-
-
-                // Restore default quantity
-                if (exists(orderQuantity)) {
-
-                    orderQuantity.value = "1";
-
-                }
-
-
-                if (exists(submitButton)) {
-
-                    submitButton.disabled = false;
-
-                    submitButton.innerHTML =
-                        submitButton.dataset.originalText ||
-                        '<i class="fa-solid fa-check"></i> Confirm Order';
-
-                }
-
-
-                orderSubmitting = false;
-
-
-                closeOrderModal();
-
-
-            }, 2200);
-
-        }
-    );
+    }
 
 
     /* =====================================================
        ESC KEY
     ===================================================== */
 
-    safeOn(
-        document,
+    document.addEventListener(
         "keydown",
-        event => {
+        function (event) {
 
-            if (event.key !== "Escape") {
-                return;
-            }
-
-
-            // Close mobile menu
             if (
-                exists(navLinks) &&
-                navLinks.classList.contains("active")
-            ) {
-
-                navLinks.classList.remove(
-                    "active"
-                );
-
-                hamburger?.classList.remove(
-                    "active"
-                );
-
-            }
-
-
-            // Close order modal
-            if (
-                exists(orderModal) &&
-                orderModal.classList.contains("active")
+                event.key === "Escape"
             ) {
 
                 closeOrderModal();
-
-            }
-
-
-            // Close lightbox
-            if (
-                exists(lightbox) &&
-                lightbox.classList.contains("active")
-            ) {
-
                 closeLightbox();
+
+
+                if (navLinks) {
+
+                    navLinks.classList.remove(
+                        "active"
+                    );
+
+                }
+
+
+                if (hamburger) {
+
+                    hamburger.classList.remove(
+                        "active"
+                    );
+
+                }
 
             }
 
@@ -1434,7 +1474,7 @@ document.addEventListener("DOMContentLoaded", () => {
         $("#currentYear");
 
 
-    if (exists(currentYear)) {
+    if (currentYear) {
 
         currentYear.textContent =
             new Date().getFullYear();
@@ -1443,336 +1483,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       IMAGE FALLBACK
-       Prevent broken images from looking ugly
-    ===================================================== */
-
-    $$("img").forEach(image => {
-
-        safeOn(
-            image,
-            "error",
-            () => {
-
-                image.style.opacity = "0.5";
-
-                console.warn(
-                    "Image failed to load:",
-                    image.src
-                );
-
-            }
-        );
-
-    });
-
-
-    /* =====================================================
-       ORDER FORM SMART UX
-    ===================================================== */
-
-    safeOn(
-        orderName,
-        "input",
-        () => {
-
-            // Remove leading spaces
-            orderName.value =
-                orderName.value.replace(
-                    /^\s+/,
-                    ""
-                );
-
-        }
-    );
-
-
-    safeOn(
-        orderAddress,
-        "input",
-        () => {
-
-            // Remove excessive spaces at start
-            orderAddress.value =
-                orderAddress.value.replace(
-                    /^\s+/,
-                    ""
-                );
-
-        }
-    );
-
-
-    /* =====================================================
-       RESTORE LAST ORDER INFORMATION
-       Helps customer reorder faster
-    ===================================================== */
-
-    const restoreCustomerInfo = () => {
-
-        try {
-
-            const orders =
-                JSON.parse(
-                    localStorage.getItem(
-                        "sanjayWaterOrders"
-                    ) || "[]"
-                );
-
-
-            if (!orders.length) return;
-
-
-            const lastOrder =
-                orders[orders.length - 1];
-
-
-            if (
-                exists(orderName) &&
-                !orderName.value
-            ) {
-
-                orderName.value =
-                    lastOrder.customerName || "";
-
-            }
-
-
-            if (
-                exists(orderPhone) &&
-                !orderPhone.value
-            ) {
-
-                orderPhone.value =
-                    lastOrder.phone || "";
-
-            }
-
-
-            if (
-                exists(orderAddress) &&
-                !orderAddress.value
-            ) {
-
-                orderAddress.value =
-                    lastOrder.address || "";
-
-            }
-
-        } catch (error) {
-
-            console.warn(
-                "Could not restore previous order:",
-                error
-            );
-
-        }
-
-    };
-
-
-    /* =====================================================
-       PRODUCT SELECTION UX
-    ===================================================== */
-
-    safeOn(
-        orderProduct,
-        "change",
-        () => {
-
-            if (!exists(orderProduct)) {
-                return;
-            }
-
-
-            if (orderProduct.value) {
-
-                orderProduct.style.borderColor =
-                    "#16a34a";
-
-            } else {
-
-                orderProduct.style.borderColor =
-                    "";
-
-            }
-
-        }
-    );
-
-
-    /* =====================================================
-       ORDER QUANTITY UX
-    ===================================================== */
-
-    safeOn(
-        orderQuantity,
-        "input",
-        () => {
-
-            if (!exists(orderQuantity)) {
-                return;
-            }
-
-
-            let value =
-                Number(
-                    orderQuantity.value
-                );
-
-
-            if (!Number.isFinite(value)) {
-                value = 1;
-            }
-
-
-            if (value < 1) {
-                value = 1;
-            }
-
-
-            if (value > 999) {
-                value = 999;
-            }
-
-
-            orderQuantity.value =
-                value;
-
-        }
-    );
-
-
-    /* =====================================================
-       PAGE LOAD ANIMATION
+       PAGE LOADED
     ===================================================== */
 
     window.addEventListener(
         "load",
-        () => {
+        function () {
 
             document.body.classList.add(
                 "loaded"
             );
 
 
-            // Re-check reveal elements
-            revealElements.forEach(
-                element => {
-
-                    const rect =
-                        element.getBoundingClientRect();
-
-
-                    if (
-                        rect.top <
-                        window.innerHeight - 50
-                    ) {
-
-                        element.classList.add(
-                            "active"
-                        );
-
-                    }
-
-                }
-            );
+            // Force reveal check
+            revealSections();
 
         }
     );
 
 
     /* =====================================================
-       PREVENT DOUBLE TAP ON ORDER BUTTON
+       FINAL
     ===================================================== */
-
-    orderButtons.forEach(button => {
-
-        let locked = false;
-
-
-        safeOn(
-            button,
-            "click",
-            () => {
-
-                if (locked) return;
-
-
-                locked = true;
-
-
-                setTimeout(() => {
-
-                    locked = false;
-
-                }, 500);
-
-            }
-        );
-
-    });
-
-
-    /* =====================================================
-       ONLINE / OFFLINE STATUS
-    ===================================================== */
-
-    const updateConnectionStatus = () => {
-
-        if (!navigator.onLine) {
-
-            console.warn(
-                "Sanjay Water: You are currently offline."
-            );
-
-        } else {
-
-            console.log(
-                "Sanjay Water: Connection restored."
-            );
-
-        }
-
-    };
-
-
-    safeOn(
-        window,
-        "online",
-        updateConnectionStatus
-    );
-
-
-    safeOn(
-        window,
-        "offline",
-        updateConnectionStatus
-    );
-
-
-    /* =====================================================
-       FINAL INITIALIZATION
-    ===================================================== */
-
-    restoreCustomerInfo();
-
 
     console.log(
         "%c💧 SANJAY WATER",
-        "color:#0077B6;font-size:24px;font-weight:800;"
+        "color:#087ea4;font-size:24px;font-weight:800;"
     );
 
-
     console.log(
-        "%cWebsite JavaScript initialized successfully.",
-        "color:#16a34a;font-size:14px;font-weight:600;"
+        "%c✅ Website JavaScript Loaded Successfully",
+        "color:#16a34a;font-size:14px;font-weight:700;"
     );
 
-
     console.log(
-        "%cOrder System: READY",
-        "color:#063B5C;font-size:14px;font-weight:700;"
+        "%c🚀 Order System Ready",
+        "color:#063b5c;font-size:14px;font-weight:700;"
     );
 
 });
